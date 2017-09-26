@@ -9,7 +9,9 @@ export default class Home extends React.Component {
 
     return (
       <View style={styles.container}>
-
+        <View style={styles.headerWrapper}>
+        <Text style={styles.header}>SELECT A SITUATION...</Text>
+        </View>
 
             <View style={styles.level1}>
                 <Button style={styles.button1}
@@ -90,14 +92,24 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         // justifyContent: 'space-around',
     },
+    // headerWrapper:{
+    //     height: '100',
+    //     width: '100%',
+    //     alignItems: 'flex-start',
+    //     justifyContent: 'flex-start'
+    // },
+    header:{
+        color: 'grey',
+        paddingBottom: 40,
+        marginTop: 10,
+        fontSize: 20
+    },
     level1:{
         width: '100%',
         height: 50,
         alignItems: 'center',
         backgroundColor: '#f2f2f2',
-        // marginTop: 10,
-        // borderWidth: 1,
-        // borderColor: '#111111'
+        // marginTop: 30
         
     },
     button1:{
@@ -110,14 +122,14 @@ const styles = StyleSheet.create({
     },
     level2Wrapper: {
         width: '100%',
-        marginTop: 30,
+        // marginTop: 30,
     },
     level2: {
         width: '100%',
         height: 50,
         alignItems: 'center',
         backgroundColor: '#E8BE59',
-        // marginTop: 20,
+        marginTop: 20,
     },
     button2:{
         color: '#111111',
@@ -129,20 +141,20 @@ const styles = StyleSheet.create({
     }, 
     level3Wrapper: {
         width: '100%',
-        marginTop: 30,
+        marginTop: 30
     },
     level3:{
         width: '100%',
-        height: 50,
+        height: 80,
         alignItems: 'center',
         backgroundColor: '#901513',
         // marginTop: 20,
     },
     button3:{
-        color: '#111111',
+        color: 'white',
         height: 45,
         justifyContent: 'center',
-        paddingTop: 20,
+        paddingTop: 30,
         alignItems: 'center',
         letterSpacing: 1,
   }
