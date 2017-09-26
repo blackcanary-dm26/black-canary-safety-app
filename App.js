@@ -8,6 +8,8 @@ import Situations from './Components/Situations'
 import Level1 from './Components/Level1'
 import Level2 from './Components/Level2'
 import Level3 from './Components/Level3'
+import Profile from './Components/Profile'
+import Contacts from './Components/Contacts'
 
 
 const App = StackNavigator({
@@ -15,7 +17,9 @@ const App = StackNavigator({
   Situations: { screen: Situations},
   Level1: { screen: Level1},
   Level2: { screen: Level2},
-  Level3: { screen: Level3}
+  Level3: { screen: Level3},
+  Profile: { screen: Profile },
+  Contacts: { screen: Contacts}
 })
 
 export default App;

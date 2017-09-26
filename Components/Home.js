@@ -14,7 +14,7 @@ export default class Home extends React.Component {
         {/* <Text>Hello Harry Potter my name is Tom Riddle.</Text>
         <Text>How did you come by my iPhone?</Text> */}
         <View style={styles.button}><Button onPress={() => navigate('Situations') } style={styles.buttonText}>SELECT SITUATION</Button></View>
-        <View style={styles.button}><Button onPress={() => navigate('Situations') } style={styles.buttonText}>PROFILE</Button></View>
+        <View style={styles.button}><Button onPress={() => navigate('Profile') } style={styles.buttonText}>PROFILE</Button></View>
         <View style={styles.button}><Button onPress={() => navigate('Situations') } style={styles.buttonText}>LOGOUT</Button></View>
         <Image source={require('./../images/placeholder_map.gif')} style={ styles.mapContainer }/>
       </View>
