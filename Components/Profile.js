@@ -70,6 +70,12 @@ export default class Level2 extends React.Component {
       saferHaven: this.state.safeyHaven
     })
   }
+
+  static navigationOptions = {
+    title: 'profile',
+    headerStyle: { backgroundColor: '#111' },
+    headerTitleStyle: { color: '#ffe8af' }
+  };
   
   render() {
     const {navigate} = this.props.navigation;
@@ -84,7 +90,7 @@ export default class Level2 extends React.Component {
             !this.state.icon
             ?
           <TouchableHighlight onPress={this.changeName}>
-            <Image source={require('./../images/7H.png')} style={{height: 15, width: 15, marginTop: 22}}/>
+            <Image source={require('./../images/edit.png')} style={{height: 15, width: 15, marginTop: 22}}/>
           </TouchableHighlight>
           : 
           null
@@ -95,15 +101,15 @@ export default class Level2 extends React.Component {
             this.state.icon
             ?
             <View style={styles.toggledHead}>
-              <TextInput style={{height: 25, width: '50%', borderColor: 'gray', borderWidth: 1}} onChangeText={this.handleChange} value={this.state.editName} />
-              <Button style={{paddingLeft: 10}} onPress={this.changeState}>Add</Button>
+              <TextInput style={{height: 25, width: '50%', borderColor: 'grey', borderWidth: 1, color: 'white'}} onChangeText={this.handleChange} value={this.state.editName} />
+              <Button style={{paddingLeft: 10, color: 'white'}} onPress={this.changeState}>Add</Button>
             </View>
             :
             null
           }
 
           </View>
-          <View style={styles.imgPlaceholder}></View>
+
 
 {/* after you click the add button it'll pop up your safe haven input*/}
             {
@@ -111,9 +117,12 @@ export default class Level2 extends React.Component {
               ?
               null
               :
+              <View>
+                <Text>SAFEHAVEN:</Text>
               <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "70%", height: '20%'}}>
                 <Text style={styles.addingTxt}>ADD YOUR SAFEHAVEN TO LET YOUR FRIENDS KNOW YOU'RE SAFE</Text>
                 <Button onPress={this.showSafeHaven} style={styles.btn}>ADD</Button>
+              </View>
               </View>
             }
 
@@ -121,7 +130,6 @@ export default class Level2 extends React.Component {
              {
               this.state.inputBeingShown
               ?
-
               null
               :
               <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "100%", height: '20%'}}>  
@@ -135,7 +143,7 @@ export default class Level2 extends React.Component {
               this.state.addedSafeHaven
               ?
               <View style={{justifyContent: 'center'}}>
-              <Text style={{height: '20%', letterSpacing: 1, fontSize: 22}}>SAFE HAVEN: {this.state.saferHaven}</Text>
+              <Text style={{height: '20%', letterSpacing: 1, fontSize: 22, color: 'white'}}>SAFE HAVEN: {this.state.saferHaven}</Text>
               </View>
               :
               null
@@ -155,7 +163,7 @@ export default class Level2 extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#111',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -166,11 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     padding: 20,
     letterSpacing: 1,
-  },
-  imgPlaceholder:{
-    width: '50%',
-    height: '30%',
-    backgroundColor: 'grey'
+    color: '#ffe8af'
   },
   button:{
     color: '#111111',
@@ -179,7 +183,8 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     width: '100%',
     alignItems: 'center',
-    letterSpacing: 1
+    letterSpacing: 1,
+    color: 'white'
   },
   deletebutton:{
     color: 'red',
@@ -189,6 +194,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     letterSpacing: 1
+  },
+  showSafeHaven:{
+    color: 'white'
   },
   toggledHead:{
     width: '100%',
@@ -207,12 +215,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     alignSelf: 'center',
     padding: 22,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
   btn:{
     width: '100%',
     marginTop: 20,
     height: 90,
     alignSelf: 'center',
+    color: 'white'
   }
 });
