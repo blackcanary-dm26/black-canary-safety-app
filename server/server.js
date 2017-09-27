@@ -76,6 +76,32 @@ massive({
 // ));
 
 
+//================ SOCKETS ==============//
+io.on('connection', socket => {
+    console.log('A user has connected, socket ID: ', socket.id);
+
+//heartbeat updates the connected user every second
+    // setInterval(heartbeat, 1000);
+    // function heartbeat(){
+    //     //app.get all info from db to send in heartbeat
+    //     //app.get('db').getUserInfo();     
+    //     socket.emit('hearbeat', data)
+    // }
+    
+    socket.on('send location', data => {
+        // app.post data to active_locations table in db
+    })    
+
+
+
+    socket.on('disconnect', ()=> {
+        console.log('A user has disconnected, socket ID: ', socket.id);
+        
+
+    })
+
+})
+
 
 
 //server listening for sockets  
