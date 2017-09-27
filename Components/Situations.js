@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         alignItems: 'center',
-        backgroundColor: '#E8BE59',
+        backgroundColor: '#ffe8af',
         marginTop: 20,
     },
     button2:{
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         alignItems: 'center',
-        backgroundColor: '#901513',
+        backgroundColor: '#d13030',
         // marginTop: 20,
     },
     button3:{

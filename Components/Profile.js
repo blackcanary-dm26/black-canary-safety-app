@@ -10,9 +10,11 @@ export default class Level2 extends React.Component {
       name: 'Abigail Thelin',
       icon: false,
       editName: '',
+      safeyHaven: '',
       safeHaven: false,
       addedSafeHaven: false,
-      saferHaven:''
+      saferHaven:'blah',
+      inputBeingShown: false
     }
     this.changeName = this.changeName.bind(this)
     this.changeState = this.changeState.bind(this)
@@ -43,6 +45,12 @@ export default class Level2 extends React.Component {
     })
   }
 
+  handlerChange(val){
+    this.setState({
+      safeyHaven: val
+    })
+  }
+
   showSafeHaven(){
     this.setState({
       safeHaven: true
@@ -52,7 +60,14 @@ export default class Level2 extends React.Component {
   changeSafeHavenState(){
     this.setState({
       addedSafeHaven: true,
-      safeHaven: false
+      // safeyHaven: '',
+      inputBeingShown: true
+    })
+  }
+
+  changeSafeHaven(){
+    this.setState({
+      saferHaven: this.state.safeyHaven
     })
   }
   
@@ -64,6 +79,7 @@ export default class Level2 extends React.Component {
           <View style={styles.headWrapper}>
           <Text style={styles.name}>{this.state.name}</Text>
 
+{/*showing the edit icon  */}
           {
             !this.state.icon
             ?
@@ -74,38 +90,63 @@ export default class Level2 extends React.Component {
           null
           }
 
+{/* allowing users to put in their new name */}
+          {
+            this.state.icon
+            ?
+            <View style={styles.toggledHead}>
+              <TextInput style={{height: 25, width: '50%', borderColor: 'gray', borderWidth: 1}} onChangeText={this.handleChange} value={this.state.editName} />
+              <Button style={{paddingLeft: 10}} onPress={this.changeState}>Add</Button>
+            </View>
+            :
+            null
+          }
+
+          </View>
+          <View style={styles.imgPlaceholder}></View>
+
+{/* after you click the add button it'll pop up your safe haven input*/}
             {
-              this.state.icon
+              !this.state.safeHaven
               ?
-              <View style={styles.toggledHead}>
-                <TextInput style={{height: 25, width: '50%', borderColor: 'gray', borderWidth: 1}} onChangeText={this.handleChange} value={this.state.editName} />
-                <Button style={{paddingLeft: 10}} onPress={this.changeState}>Add</Button>
+              null
+              :
+              <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "70%", height: '20%'}}>
+                <Text style={styles.addingTxt}>ADD YOUR SAFEHAVEN TO LET YOUR FRIENDS KNOW YOU'RE SAFE</Text>
+                <Button onPress={this.showSafeHaven} style={styles.btn}>ADD</Button>
+              </View>
+            }
+
+{/* toggles off the input feild*/}
+             {
+              this.state.inputBeingShown
+              ?
+
+              null
+              :
+              <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "100%", height: '20%'}}>  
+                <TextInput style={{height: 30, width: '70%', borderColor: 'grey', borderWidth: .5, letterSpacing: 1,}} placeholder="CHANGE SAFEHAVEN"onChangeText={this.handlerChange} value={this.state.changeSafeHaven}/>
+                <Button style={{marginLeft: 10}} onPress={this.changeSafeHavenState}>Add</Button>
+              </View>
+            } 
+
+{/*showing the edit icon  */}
+            {
+              this.state.addedSafeHaven
+              ?
+              <View style={{justifyContent: 'center'}}>
+              <Text style={{height: '20%', letterSpacing: 1, fontSize: 22}}>SAFE HAVEN: {this.state.saferHaven}</Text>
               </View>
               :
               null
             }
-          </View>
-
-          <View style={styles.imgPlaceholder}></View>
-
-            {
-              !this.state.safeHaven
-              ?
-              <View style={styles.safeHaven}>
-                <Text style={styles.addingTxt}>ADD YOUR SAFEHAVEN TO LET YOUR FRIENDS KNOW YOU'RE SAFE</Text>
-                <Button onPress={this.showSafeHaven} style={styles.btn}>ADD</Button>
-              </View>
-              :
-              <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "100%", height: '20%'}}>  
-                <TextInput style={{height: 30, width: '70%', borderColor: 'grey', borderWidth: .5}} placeholder="CHANGE SAFEHAVEN"onChangeText={(text) => this.setState({text})} />
-                <Button style={{marginLeft: 10}} onPress={this.changeSafeHavenState}>Add</Button>
-              </View>
-            }
 
 
 
-            <Button onPress={() => navigate('Contacts')} style={styles.button}>GO TO CONTACTS</Button>
-
+            <View style={{justifyContent: 'flex-end'}}>
+              <Button onPress={() => navigate('Contacts')} style={styles.button}>GO TO CONTACTS</Button>
+              <Button onPress={() => navigate('Contacts')} style={styles.button}>DELETE YOUR ACCOUNT</Button>
+            </View>
         </View>
     );
   }
@@ -123,7 +164,8 @@ const styles = StyleSheet.create({
   },
   name:{
     fontSize: 22,
-    padding: 20
+    padding: 20,
+    letterSpacing: 1,
   },
   imgPlaceholder:{
     width: '50%',
@@ -143,21 +185,24 @@ const styles = StyleSheet.create({
     height: '50',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   safeHaven:{
-    width: '90%',
+    width: '80%',
     height: 100,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   AddingTxt:{
-    letterSpacing: 1
+    letterSpacing: 1,
+    alignSelf: 'center',
+    padding: 22,
+    textAlign: 'center'
   },
   btn:{
     width: '100%',
     marginTop: 20,
     height: 90,
-    alignSelf: 'center'
+    alignSelf: 'center',
   }
 });
