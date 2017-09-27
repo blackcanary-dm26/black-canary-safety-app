@@ -7,10 +7,11 @@ const express = require('express')
     , cors = require('cors')
     // , passport = require('passport')
     // , Auth0Strategy = require('passport-auth0')
-    , Auth0 = require('react-native-auth0')
+    // , Auth0 = require('react-native-auth0')
     , app = express()
     , http = require('http')
     , server = http.createServer(app)
+    , sockets = require('socket.io')
     , io = sockets(server)
     , port = process.env.PORT;
 
@@ -24,7 +25,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + './../build')) //npm build to deploy app
+// app.use(express.static(__dirname + './../build')) //npm build to deploy app
 
 massive({
     host: process.env.DB_HOST,
@@ -36,6 +37,7 @@ massive({
   }).then( db => {
     app.set('db', db); 
   })
+
 
   
 //native auth0 authentication
@@ -74,6 +76,39 @@ massive({
 //     }
 // ));
 
+
+//================ SOCKETS ==============//
+io.on('connection', socket => {
+    console.log('A user has connected, socket ID: ', socket.id);
+
+//heartbeat updates the connected user every second
+    // setInterval(heartbeat, 1000);
+    // function heartbeat(){
+    //     //app.get all info from db to send in heartbeat
+    //     //app.get('db').getUserInfo();     
+    //     socket.emit('hearbeat', data)
+    // }
+    
+    socket.on('send location', data => {
+        // app.post data to active_locations table in db
+    })    
+
+    socket.on('update user info', data => {
+        //app.put the user info by user id to (users table) in db
+            //.then(user=> {
+                socket.emit('update user', {user})
+            // })
+    })
+
+    socket.on('delete user', userId => {
+        //app.delete user by userId
+    })
+
+    socket.on('disconnect', ()=> {
+        console.log('A user has disconnected, socket ID: ', socket.id);
+    })
+
+})
 
 
 
