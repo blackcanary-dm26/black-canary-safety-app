@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, ScrollView, View, TextInput, Keyboard, Picker } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, TextInput, Image } from 'react-native';
 import Button from 'react-native-button';
 // import CheckBox from 'react-native-checkbox';
 
@@ -10,7 +10,43 @@ export default class Level1 extends React.Component {
       
       this.state = {
         message: '',
-        timeActive: 0,
+        timeOptions: [
+          {
+            selected: false,
+            time: 1,
+            timeMS: 3600000
+          },
+          {
+            selected: false,
+            time: 2,
+            timeMS: (2 * 3600000)
+          },
+          {
+            selected: false,
+            time: 3,
+            timeMS: (3 * 3600000)
+          },
+          {
+            selected: false,
+            time: 5,
+            timeMS: (5 * 3600000)
+          },
+          {
+            selected: false,
+            time: 10,
+            timeMS: (10 * 3600000)
+          },
+          {
+            selected: false,
+            time: 18,
+            timeMS: (18 * 3600000)
+          },
+          {
+            selected: false,
+            time: 24,
+            timeMS: (24 * 3600000)
+          }
+        ],
         contacts: [
           {
             firstName: 'Janise',
@@ -167,18 +203,45 @@ export default class Level1 extends React.Component {
 
   }
 
+  toggleTime(event, timeOpt) {
+    event.preventDefault();
+
+    timeOpt.selected = true;
+
+    let options = this.state.timeOptions.slice(0);
+    options.map((e, index, array) => {
+      if (e.time === timeOpt.time) {
+        array[index] = timeOpt;
+      } else {
+        e.selected = false;
+        array[index] = e
+      }
+    });
+
+    this.setState({
+        timeOptions: options
+    })
+
+  }
+
+  static navigationOptions = {
+    title: 'LEVEL 1',
+    headerStyle: { backgroundColor: '#111' },
+    headerTitleStyle: { color: '#ffe8af' }
+  };
+
   render() {
     
     const {navigate} = this.props.navigation;
 
     return (
         <View style={styles.container}>
-          <ScrollView style={{width: '100%', borderWidth: 1, borderColor: 'red'}}>
+          <ScrollView style={{width: '100%', height:'200%', backgroundColor: '#111'}}>
             <View style={styles.textViewsHeader}>
               <Text style={styles.pageHeader}>SITUATION</Text>
             </View>
             <View style={styles.textViewsMessage}>
-              <Text style={styles.infoHeaders}>MESSAGE:</Text>
+              <Text style={styles.infoHeadersMessage}>MESSAGE:</Text>
               <View style={styles.message}><TextInput ref="message" autoCapitalize={'characters'} blurOnSubmit={true} style={{color: '#EFEFEF', fontSize: 18}} multiline={true} numberOfLines={4} editable={true} maxLength = {180} onChangeText={(text) => this.setState({message: text})} value={this.state.message}/></View>
             </View>
             <View style={styles.textViewsTo}>
@@ -196,29 +259,26 @@ export default class Level1 extends React.Component {
               {
                 this.state.contacts.map(contact => {
                   if(contact.hasOwnProperty('firstName')){
-                    return <Button key={contact.username} ref={contact.username} style={{color: contact.isRecipient? '#111' : '#EFEFEF', backgroundColor: contact.isRecipient? '#E8BE59':'rgba(17,17,17,0.65)', height: 35, paddingTop: 5, paddingBottom: 5}} onPress={(e) => this.toggleRecipients(e,contact)}>{contact.firstName.toUpperCase() + ' ' + contact.lastName.toUpperCase()}</Button>
+                    return <Button key={contact.username} ref={contact.username} style={{color: contact.isRecipient? '#111' : '#EFEFEF', backgroundColor: contact.isRecipient? '#ffe8af':'rgba(17,17,17,0.65)', height: 35, paddingTop: 5, paddingLeft: 10, paddingBottom: 5, width: '100%', textAlign: 'left'}} onPress={(e) => this.toggleRecipients(e,contact)}>{contact.firstName.toUpperCase() + ' ' + contact.lastName.toUpperCase()}</Button>
                   } else {
-                    return <Button key={contact.groupName} ref={contact.groupName} style={{color: contact.isRecipient? '#111' : '#EFEFEF', backgroundColor: contact.isRecipient? '#E8BE59':'rgba(17,17,17,0.65)', height: 35, paddingTop: 5, paddingBottom: 5}} onPress={(e) => this.toggleRecipients(e,contact)}>{contact.groupName.toUpperCase()}</Button>                    
+                    return <Button key={contact.groupName} ref={contact.groupName} style={{color: contact.isRecipient? '#111' : '#EFEFEF', backgroundColor: contact.isRecipient? '#ffe8af':'rgba(17,17,17,0.65)', height: 35, paddingTop: 5, paddingLeft: 10, paddingBottom: 5, width: '100%', textAlign: 'left'}} onPress={(e) => this.toggleRecipients(e,contact)}>{contact.groupName.toUpperCase()}</Button>                    
                   }
                 })
               }
               </ScrollView>
             </View>
-            <View style={styles.textViews}>
-              <Text style={styles.infoHeaders}>TIME ACTIVE (HOURS)</Text>              
-              <Picker
-                selectedValue={this.state.timeActive}
-                onValueChange={(itemValue, itemIndex) => this.setState({timeActive: itemValue})}>
-                <Picker.Item label="1" value={3600000} />
-                <Picker.Item label="2" value={2 * 3600000} />
-                <Picker.Item label="3" value={3 * 3600000} />
-                <Picker.Item label="5" value={5 * 3600000} />
-                <Picker.Item label="10" value={10 * 3600000} />
-                <Picker.Item label="18" value={18 * 3600000} />                                                
-                <Picker.Item label="24" value={24 * 3600000} />                          
-              </Picker>             
+            <View style={styles.textViewsTime}>
+              <Text style={styles.infoHeadersTime}>TIME ACTIVE (HOURS):</Text>
+               <ScrollView style={styles.scrollContacts}>              
+              {
+                this.state.timeOptions.map(option => {
+                  return <Button key={option.time} ref={option.time} style={{color: option.selected? '#111' : '#EFEFEF', backgroundColor: option.selected? '#ffe8af':'rgba(17,17,17,0.65)', height: 35, paddingTop: 5, paddingLeft: 10, paddingBottom: 5, width: '100%', textAlign: 'left'}} onPress={(e) => this.toggleTime(e,option)}>{option.time}</Button>
+                })
+              }
+              </ScrollView> 
             </View>
-            <View>
+            <View style={styles.textViews}>
+              <Image source={require('./../images/blackCanary.svg')} style={{width: 20, height: 20}}/>
               <Button style={styles.button}>SEND</Button>
             </View>
           </ScrollView>
@@ -245,63 +305,84 @@ const styles = StyleSheet.create({
   },
   textViewsMessage: {
     width: '100%',
-    height: '23%',
-    backgroundColor: '#EFEFEF',
+    height: '50%',
+    backgroundColor: '#111',
     paddingLeft: 40,
     paddingRight: 40,
-    borderWidth: 1,
-    borderColor: 'blue'
   },
   textViewsTo: {
     width: '100%',
-    height: '30%',
-    backgroundColor: '#EFEFEF',
+    height: '45%',
+    backgroundColor: '#111',
     paddingLeft: 40,
     paddingRight: 40,
-    borderWidth: 1,
-    borderColor: 'blue'
+    marginBottom: 10    
   },
   textViewsHeader: {
     width: '100%',
-    height: '10%',
-    backgroundColor: '#EFEFEF',
+    height: '20%',
+    backgroundColor: '#111',
     paddingLeft: 40,
     paddingRight: 40,
     paddingTop: 15,
-    borderWidth: 1,
-    borderColor: 'blue'
+    marginBottom: 10    
+  },
+  textViewsTime: {
+    width: '100%',
+    height: '45%',
+    backgroundColor: '#111',
+    paddingLeft: 40,
+    paddingRight: 40,
+    marginBottom: 10    
   },
   textViews: {
     width: '100%',
     height: '23%',
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#ffe8af',
     paddingLeft: 40,
     paddingRight: 40,
   },
-  infoHeaders: {
-    color: '#111111',
+  infoHeadersMessage: {
+    color: '#EFEFEF',
     fontSize: 18,
+    minHeight: 25
   },
   infoHeadersTo: {
-    color: '#111111',
+    color: '#EFEFEF',
     fontSize: 18,
-    minHeight: 50
+    minHeight: 25
+  },
+  infoHeadersTime: {
+    color: '#EFEFEF',
+    fontSize: 18,
+    minHeight: 25
   },
   pageHeader: {
-    color: '#111111',
+    color: '#EFEFEF',
     fontSize: 30,
-    textAlign: 'center',
-    borderWidth: 1,
-    borderColor: 'blue'
+    textAlign: 'center'
   },
   scrollContacts: {
-    height: 10,
+    height: 7,
+    marginBottom: 10,
     borderWidth: 1,
-    borderColor: 'green',
+    borderColor: '#ffe8af'
   },
   message: {
     backgroundColor: 'rgba(17,17,17,0.65)',
     height: 115,
     padding: 10,
+    borderWidth: 1,
+    borderColor: '#ffe8af'
+  },
+  pickerView: {
+    width: 100,
+    height: '60%',
+  },
+  button: {
+    color: '#ffe8af',
+    width: '100%',
+    height: '100%',
+    fontSize: 18,
   }
 });
