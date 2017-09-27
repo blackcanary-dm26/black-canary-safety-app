@@ -11,6 +11,7 @@ const express = require('express')
     , app = express()
     , http = require('http')
     , server = http.createServer(app)
+    , sockets = require('socket.io')
     , io = sockets(server)
     , port = process.env.PORT;
 
@@ -92,12 +93,19 @@ io.on('connection', socket => {
         // app.post data to active_locations table in db
     })    
 
+    socket.on('update user info', data => {
+        //app.put the user info by user id to (users table) in db
+            //.then(user=> {
+                socket.emit('update user', {user})
+            // })
+    })
 
+    socket.on('delete user', userId => {
+        //app.delete user by userId
+    })
 
     socket.on('disconnect', ()=> {
         console.log('A user has disconnected, socket ID: ', socket.id);
-        
-
     })
 
 })
