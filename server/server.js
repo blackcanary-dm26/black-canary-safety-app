@@ -7,7 +7,7 @@ const express = require('express')
     , cors = require('cors')
     // , passport = require('passport')
     // , Auth0Strategy = require('passport-auth0')
-    , Auth0 = require('react-native-auth0')
+    // , Auth0 = require('react-native-auth0')
     , app = express()
     , http = require('http')
     , server = http.createServer(app)
@@ -24,7 +24,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + './../build')) //npm build to deploy app
+// app.use(express.static(__dirname + './../build')) //npm build to deploy app
 
 massive({
     host: process.env.DB_HOST,
@@ -36,6 +36,7 @@ massive({
   }).then( db => {
     app.set('db', db); 
   })
+
 
   
 //native auth0 authentication
