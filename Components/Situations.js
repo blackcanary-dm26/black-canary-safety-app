@@ -18,7 +18,7 @@ export default class Home extends React.Component {
                     onPress={() =>
                         navigate('Level1')
                     }>
-                    OUT WITH FREINDS
+                    OUT WITH FRIENDS
                 </Button>
             </View>
             <View style={styles.level1}>
