@@ -145,7 +145,7 @@ export default class Level2 extends React.Component {
 
             <View style={{justifyContent: 'flex-end'}}>
               <Button onPress={() => navigate('Contacts')} style={styles.button}>GO TO CONTACTS</Button>
-              <Button onPress={() => navigate('Contacts')} style={styles.button}>DELETE YOUR ACCOUNT</Button>
+                <Button onPress={() => navigate('Home')} style={styles.deletebutton}>DELETE YOUR ACCOUNT</Button>
             </View>
         </View>
     );
@@ -177,6 +177,16 @@ const styles = StyleSheet.create({
     height: 45,
     justifyContent: 'center',
     paddingTop: 30,
+    width: '100%',
+    alignItems: 'center',
+    letterSpacing: 1
+  },
+  deletebutton:{
+    color: 'red',
+    height: 45,
+    justifyContent: 'center',
+    paddingTop: 30,
+    width: '100%',
     alignItems: 'center',
     letterSpacing: 1
   },
