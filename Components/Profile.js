@@ -5,14 +5,15 @@ export default class Level2 extends React.Component {
   constructor(){
     super()
     this.state={
-      name: 'Abigail Thelin',
+      name: 'BLAH BLAH',
       safehavenTitle:'',
       editName: '',
       newSafeHaven: '',
       icon: false,
       addedSafeHaven: false,
       safeHaven: false,
-      inputBeingShown: false
+      inputBeingShown: false,
+      deleteYourAccount: false
     }
     this.changeName = this.changeName.bind(this)
     this.saveName = this.saveName.bind(this)
@@ -20,6 +21,8 @@ export default class Level2 extends React.Component {
     this.showSafeHaven = this.showSafeHaven.bind(this)
     this.changeSafeHavenTitle = this.changeSafeHavenTitle.bind(this)
     this.toggleSafeHavenLocation = this.toggleSafeHavenLocation.bind(this)
+    this.deleteAccount = this.deleteAccount.bind(this)
+    this.exitDeleteScreen = this.exitDeleteScreen.bind(this)
   }
   changeName(){
     this.setState({
@@ -60,8 +63,19 @@ export default class Level2 extends React.Component {
 
   toggleSafeHavenLocation(){
       this.setState({
-          addedSafeHaven: false
+          addedSafeHaven: false,
+          safehavenTitle: ''
       })
+  }
+  deleteAccount(){
+    this.setState({
+      deleteYourAccount: true
+    })
+  }
+  exitDeleteScreen(){
+    this.setState({
+      deleteYourAccount: false
+    })
   }
 
   static navigationOptions = {
@@ -69,6 +83,7 @@ export default class Level2 extends React.Component {
     headerStyle: { backgroundColor: '#111' },
     headerTitleStyle: { color: '#ffe8af' }
   };
+
   
   render() {
       console.log(this.state.safehavenTitle)
@@ -76,6 +91,26 @@ export default class Level2 extends React.Component {
     const {navigate} = this.props.navigation;
     return (
         <View style={styles.container}>
+{/* DELETE YOUR ACCOUNT */}
+            {
+              this.state.deleteYourAccount
+              ?
+              <View style={{width: '90%', height: '90%', backgroundColor: '#EFEFEF'}}>
+                <TouchableHighlight onPress={this.exitDeleteScreen}>
+                  <Image style={{height: 15, width: 15, margin: 20}} source={require('../images/x.png')}/>
+                </TouchableHighlight>
+
+                <View style={{alignItems: 'center'}}>
+                  <Text style={{fontSize: 22, letterSpacing: 1, color: 'black'}}>ARE YOU SURE YOU WANT TO DELETE YOUR ACCOUNT?</Text>
+                  <View style={{justifyContent: 'space-around', width: '60%', height: '80%', alignContent:'center', marginTop: 80}}>
+                    <Button onPress={this.exitDeleteScreen} style={{color: 'black', backgroundColor: '#ffe8af', width: '100%', height: '50%', padding: 30}}>No, I want to continue feeling safe</Button>
+                    <Button style={{color: 'white', backgroundColor: '#d13030', width: '100%', height: '50%', padding: 30}}>Yes, I want to delete my account and feel unsafe</Button>
+                  </View>
+                </View>
+              </View>
+              :
+              null
+            }
           <View style={styles.headWrapper}>
           <Text style={styles.name}>{this.state.name}</Text>
 {/*showing the edit icon  */}
@@ -93,31 +128,41 @@ export default class Level2 extends React.Component {
           }
           </View>
 {/* after you click the add button it'll pop up your safe haven input*/}
-
-{/*showing the edit icon  */}
             {
               this.state.addedSafeHaven
               ?
-              <View style={{justifyContent: 'center'}}>
-              <Text style={{height: '20%', letterSpacing: 1, fontSize: 22, color: 'white'}}>SAFE HAVEN: {this.state.safehavenTitle} </Text>
-                <TouchableHighlight onPress={this.toggleSafeHavenLocation}>
-                    <Image source={require('./../images/edit.png')} style={{height: 15, width: 15, marginTop: 22}}/>
-                </TouchableHighlight>
+              <View style={{justifyContent: 'center', alignItems: 'center', height: '50%', flexDirection: 'column'}}>
+                <Text style={{height: '10%', letterSpacing: 1, fontSize: 22, color: 'white'}}>SAFE HAVEN:</Text>
+                <View style={{flexDirection: 'row', height: '10%', width: '55%', justifyContent: 'flex-start', alignItems:'flex-start'}}>
+                    <Text style={{color: 'white'}}>{this.state.safehavenTitle}</Text>
+                    <TouchableHighlight onPress={this.toggleSafeHavenLocation}>
+                        <Image source={require('./../images/edit.png')} style={{height: 15, width: 15, marginLeft: 15}}/>
+                    </TouchableHighlight>
+                </View>
 
               </View>
               :
-              <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "100%", height: '20%'}}>  
-                <TextInput style={{height: 30, width: '70%', borderColor: 'grey', borderWidth: .5, letterSpacing: 1, color: 'white'}} placeholder="CHANGE SAFEHAVEN" onChangeText={(val, input) =>this.safehavenChange(val, input)} value={this.state.newSafeHaven}/>
-                <Button style={{marginLeft: 10}} onPress={this.changeSafeHavenTitle}>Add</Button>
+              <View style={{flexDirection: 'column', height: '50%',justifyContent:'center', alignItems: 'center'}}>
+                <Text style={{color: 'white', paddingLeft: '10%'}}>ADD SAFE HAVEN:</Text>
+                <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'center', width: "100%", height: '20%'}}>  
+                  <TextInput style={{height: 30, width: '70%', borderColor: '#ffe8af', borderWidth: .5, letterSpacing: 1, color: 'white'}} placeholder="CHANGE SAFEHAVEN" onChangeText={(val, input) =>this.safehavenChange(val, input)} value={this.state.newSafeHaven}/>
+                  <Button style={{marginLeft: 10}} onPress={this.changeSafeHavenTitle}>Add</Button>
+                </View>
               </View>
             }
+
 
 
             <View style={{justifyContent: 'flex-end'}}>
               <Button onPress={() => navigate('Contacts')} style={styles.button}>GO TO CONTACTS</Button>
               <Button onPress={() => navigate('Contacts')} style={styles.button}>GO TO GROUPS</Button>
-            <Button onPress={() => navigate('Home')} style={styles.deletebutton}>DELETE YOUR ACCOUNT</Button>
+              <Button onPress={this.deleteAccount} style={styles.deletebutton}>DELETE YOUR ACCOUNT</Button>
             </View>
+
+
+
+
+
         </View>
     );
   }
@@ -136,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     padding: 20,
     letterSpacing: 1,
-    color: '#ffe8af'
+    color: 'white'
   },
   button:{
     color: '#111111',
