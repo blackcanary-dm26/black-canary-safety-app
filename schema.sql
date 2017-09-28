@@ -16,7 +16,7 @@ password VARCHAR(30)
 INSERT INTO users (username, firstName, lastName, socketID, safe_haven, password)
 VALUES ('pandi', 'Andi', 'Platter', '2io2300293rj', '865 N. 160W, Provo, UT', 'password');
 INSERT INTO users (username, firstName, lastName, socketID, safe_haven, password)
-VALUES ('georgelopez', 'Carl', 'Juan', '2io2323f93rj', '920 Ice Cream Street', 'password');
+VALUES ('georgelopez', 'Carl', 'James', '2io2323f93rj', '920 Ice Cream Street', 'password');
 INSERT INTO users (username, firstName, lastName, socketID, safe_haven, password)
 VALUES ('gertrude', 'Linda', 'Morris', 'ajf8a3jo3lisdf', '393 100N, Provo, UT', 'password');
 INSERT INTO users (username, firstName, lastName, socketID, safe_haven, password)
