@@ -1,9 +1,10 @@
 //these functions are invoked in their components' componentsDidMount() life cycle method
+//or server.js
 
 module.exports = {
     heartbeat: function(){ //in menu? component 
         //DONE //write socket.emit('heartbeat') from server
-        //write action in reducer.js to save to state
+        //DONE //write action in reducer.js to save to state
         socket.on('heartbeat', data=> {
             //save friends: data.friends,
             //save userInfo: data.user,
@@ -13,7 +14,7 @@ module.exports = {
     },
     updateUser: function(){ //in profile component
         //DONE //write socket.emit('update user') from server
-        //write action in reducer.js to save to state
+        //DONE //write action in reducer.js to save to state
         socket.on('update user', data=>{
             //save userInfo: data.user
         })
